@@ -7,7 +7,7 @@ cd "$(dirname "$0")" || exit
 check_can_release() {
   local version="$1"
 
-  type -P asciidoctor >/dev/null || usage "You need asciidoctor to make releases"
+  #type -P asciidoctor >/dev/null || usage "You need asciidoctor to make releases"
 
   if [ -n "$(git status --porcelain)" ]
   then
@@ -34,10 +34,10 @@ prepare_release() {
   shift
 
   update_version "$version"
-  update_man
+#  update_man
 
   git add bash_unit
-  git add docs/man/man1/bash_unit.1
+#  git add docs/man/man1/bash_unit.1
 
   if [ $# -eq 0 ]
   then
@@ -54,9 +54,9 @@ update_version() {
   sed -i -e "s:^VERSION=.*:VERSION=$version:" bash_unit
 }
 
-update_man() {
-  asciidoctor -D docs/man/man1 -d manpage -b manpage README.adoc
-}
+#update_man() {
+#  asciidoctor -D docs/man/man1 -d manpage -b manpage README.adoc
+#}
 
 publish_release() {
   local version="$1"
